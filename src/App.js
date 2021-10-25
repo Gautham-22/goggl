@@ -11,9 +11,11 @@ const App = () => {
     return (
         <div className={darkTheme ? "dark" : ''}>
             <div className="bg-gray-300 dark:bg-gray-900 dark:text-gray-200 min-h-screen">
-                <Navbar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
-                <Routes />
-                <Footer />
+                <div className="min-h-screen max-w-screen-2xl m-auto">
+                    <Navbar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+                    <Routes />
+                    <Footer />
+                </div>
             </div>
         </div>
     );

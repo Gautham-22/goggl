@@ -11,20 +11,25 @@ export const ResultsContextProvider = ({children}) => {
 
     const getResults = async (type) => {
         setIsLoading(true);
+        
+        try {
+            const response = await fetch(`${baseurl}${type}`, {
+                method: "GET",
+                headers: {
+                    "x-user-agent": "desktop",
+                    "x-rapidapi-host": "google-search3.p.rapidapi.com",
+                    "x-rapidapi-key": process.env.REACT_APP_API_KEY
+                }
+            });
+            const data = await response.json();
+    
+            console.log(data);
+    
+            setResults(data);
+        } catch(err) {
+            console.log(err);
+        }
 
-        const response = await fetch(`${baseurl}${type}`, {
-            method: "GET",
-            headers: {
-                "x-user-agent": "desktop",
-                "x-rapidapi-host": "google-search3.p.rapidapi.com",
-                "x-rapidapi-key": "SIGN-UP-FOR-KEY"
-            }
-        });
-        const data = response.json();
-
-        console.log(data);
-
-        setResults(data);
         setIsLoading(false);
     };
 
