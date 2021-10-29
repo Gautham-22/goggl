@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import ReactPlayer from 'react-player';
 import { useResultsContext } from '../context/ResultsContextProvider';
 
 import Loading from './Loading';
@@ -10,7 +11,11 @@ const Results = () => {
 
     useEffect(() => {
         if(searchTerm) {
-            getResults(`${location.pathname}/q=${searchTerm}&num=40`,location.pathname);
+            if(location.pathname === "/videos") {
+                getResults(`/search/q=${searchTerm} videos`,location.pathname);
+            } else {
+                getResults(`${location.pathname}/q=${searchTerm}&num=40`,location.pathname);
+            }
         }
     }, [ searchTerm, location.pathname ]);
 
@@ -76,6 +81,19 @@ const Results = () => {
                                         {source?.href}
                                     </a>
                                 </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        case "/videos":
+            return (
+                <div className="flex flex-wrap p-5 lg:px-10 justify-center">
+                    {results?.map((video,index) => {
+                        {console.log(video.additional_links?.[0].href)}
+                        return (
+                            <div key={index} className="p-4 sm:w-4/5 md:w-1/2 lg:w-1/3 w-full h-72">
+                                <ReactPlayer url={video.additional_links?.[0].href} controls width="100%" height="100%" />
                             </div>
                         );
                     })}
