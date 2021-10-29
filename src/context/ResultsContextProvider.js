@@ -7,13 +7,14 @@ const baseurl = "https://google-search3.p.rapidapi.com/api/v1";
 export const ResultsContextProvider = ({children}) => {
     const [ isLoading,setIsLoading ] = useState(false);
     const [ results,setResults ] = useState([]);
-    const [ searchItem,setSearchItem ] = useState('JS Mastery');
+    const [ searchTerm,setSearchTerm ] = useState('india');
 
-    const getResults = async (type) => {
+    const getResults = async (query, type) => {
         setIsLoading(true);
-        
+
         try {
-            const response = await fetch(`${baseurl}${type}`, {
+
+            const response = await fetch(`${baseurl}${query}`, {
                 method: "GET",
                 headers: {
                     "x-user-agent": "desktop",
@@ -22,8 +23,18 @@ export const ResultsContextProvider = ({children}) => {
                 }
             });
             const data = await response.json();
-            console.log(data);
-            setResults(data);
+
+            if(type === "/search") {
+                console.log(data.results);
+                setResults(data.results);
+            } else if(type === "/images") {
+                console.log(data.image_results);
+                setResults(data.image_results);
+            } else if(type === "/news") {
+                console.log(data.entries);
+                setResults(data.entries);
+            }
+
         } catch(err) {
             console.log(err);
         }
@@ -32,7 +43,7 @@ export const ResultsContextProvider = ({children}) => {
     };
 
     return (
-        <ResultsContext.Provider value={{isLoading, results, getResults, searchItem, setSearchItem}}>
+        <ResultsContext.Provider value={{isLoading, results, getResults, searchTerm, setSearchTerm}}>
             {children}
         </ResultsContext.Provider>
     );
