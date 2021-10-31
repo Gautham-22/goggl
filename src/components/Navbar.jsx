@@ -5,7 +5,7 @@ import Search from './Search';
 
 const Navbar = ({ darkTheme, setDarkTheme }) => {
     return (
-        <div className="p-5 pb-2 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center sm:justify-between justify-center">
+        <div className="py-5 px-2 pb-0 sm:p-5 sm:pb-0 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center sm:justify-between justify-center">
             <div className="space-x-5 w-screen flex flex-wrap justify-between items-center">
                 <Link to="/">
                     <p className="px-1.5 py-2 rounded-md bg-blue-500 dark:bg-gray-500 bg-opacity-85 text-2xl font-bold text-gray-300 dark:text-gray-900">
